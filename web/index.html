@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="$FLUTTER_BASE_HREF">
+  <meta charset="UTF-8">
+  <meta name="description" content="A Flutter app to find nearby restaurants and shelters">
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="FreeFood">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <title>FreeFood</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <!-- Load Flutter -->
+  <script src="flutter.js" defer></script>
+
+  <script>
+    // Flutter web configuration
+    const flutterConfig = {
+      renderer: "html",
+      canvasKitBaseUrl: "/canvaskit/"
+    };
+
+    async function initializeApp() {
+      // Wait for Flutter to be ready
+      await _flutter.loader.loadEntrypoint({
+        entrypointUrl: "main.dart.js",
+        onEntrypointLoaded: async function(engineInitializer) {
+          // Load Google Maps first
+          await new Promise((resolve) => {
+            const script = document.createElement('script');
+            script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAkN6kA08568tyiHxZgXI3_smHGVuORuWQ&libraries=places&loading=async';
+            script.async = true;
+            script.onload = resolve;
+            document.head.appendChild(script);
+          });
+
+          // Initialize Flutter
+          let appRunner = await engineInitializer.initializeEngine({
+            ...flutterConfig
+          });
+
+          // Run the app
+          await appRunner.runApp();
+          
+          // Remove loading indicator
+          document.getElementById('loading')?.remove();
+        }
+      });
+    }
+
+    window.addEventListener('load', function() {
+      initializeApp();
+    });
+  </script>
+
+  <style>
+    body {
+      background-color: #FFFFFF;
+      margin: 0;
+    }
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #3498db;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div id="flutter_app"></div>
+  <div id="loading" class="loading">
+    <div class="spinner"></div>
+  </div>
+</body>
+</html> 

@@ -1,0 +1,51 @@
+name: freefood
+description: A Flutter app to find nearby restaurants and shelters
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  google_maps_flutter: ^2.5.3
+  geolocator: ^13.0.2
+  http: ^1.1.0
+  provider: ^6.1.1
+  shared_preferences: ^2.2.2
+  cached_network_image: ^3.3.1
+  flutter_cache_manager: ^3.3.1
+  permission_handler: ^11.0.1
+  json_annotation: ^4.9.0
+  url_launcher: ^6.1.14
+  geocoding: ^3.0.0
+  google_places_flutter: ^2.0.6
+  web: ^1.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  build_runner: ^2.4.8
+  json_serializable: ^6.7.1
+
+flutter:
+  uses-material-design: true
+  
+  assets:
+    - assets/
+    - assets/map_styles/
+
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 700
+
+# ... rest of the content ... 
